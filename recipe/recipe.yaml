@@ -31,10 +31,11 @@ requirements:
     - cargo-bundle-licenses
     - cargo-auditable
   host:
-    - openssl
-    - libgit2
     - if: unix
-      then: pkg-config
+      then:
+        - libgit2
+        - openssl
+        - pkg-config
 
 tests:
   - script:

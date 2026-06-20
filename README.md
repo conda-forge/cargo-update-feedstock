@@ -11,7 +11,7 @@ Summary: A cargo subcommand for checking and applying updates to installed execu
 
 Development: https://github.com/nabijaczleweli/cargo-update
 
-Documentation: https://github.com/nabijaczleweli/cargo-update#readme
+Documentation: https://github.com/nabijaczleweli/cargo-update/tree/master/man
 
 cargo-update provides the `cargo install-update` subcommand for cargo,
 allowing you to check for and apply updates to all installed cargo binaries.

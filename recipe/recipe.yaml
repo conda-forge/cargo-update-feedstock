@@ -16,13 +16,13 @@ build:
       CARGO_PROFILE_RELEASE_LTO: fat
       CARGO_PROFILE_RELEASE_STRIP: symbols
     content:
-      # NOTE: currently, we have to omit `--locked` in `cargo install` since the upstream project has no `Cargo.lock` committed
+      # NOTE: we have to omit `--locked` in `cargo install` since the upstream project has no `Cargo.lock` committed
       - if: unix
         then:
-          - cargo auditable install --no-track --bins --root="$PREFIX" --path=.
+          - cargo auditable install --path=. --root="$PREFIX" --no-track --bins
       - if: win
         then:
-          - cargo auditable install --no-track --bins --root="%LIBRARY_PREFIX%" --path=.
+          - cargo auditable install --path=. --root="%LIBRARY_PREFIX%" --no-track --bins
       - cargo-bundle-licenses --format=yaml --output=./THIRDPARTY.yml
 
 requirements:

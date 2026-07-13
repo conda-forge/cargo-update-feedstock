@@ -36,10 +36,13 @@ requirements:
     - if: win
       then: cmake
   host:
+    - if: linux
+      then:
+        - libsecret
+        - openssl
     - if: unix
       then:
         - libgit2
-        - openssl
         - pkg-config
 
 tests:

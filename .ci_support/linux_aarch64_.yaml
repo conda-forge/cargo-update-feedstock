@@ -14,8 +14,6 @@ docker_image:
 - quay.io/condaforge/linux-anvil-aarch64:alma9
 libgit2:
 - '1.9'
-libsecret:
-- '0.21'
 openssl:
 - '3.5'
 rust_compiler:

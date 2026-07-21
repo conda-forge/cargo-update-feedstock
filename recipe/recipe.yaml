@@ -53,13 +53,10 @@ requirements:
 
 tests:
   - script:
-      - cargo install-update --help
-      - cargo install-update --version
-      - cargo help install-update
-      - cargo install update --help
-    requirements:
-      run:
-        - ${{ compiler('rust') }}
+      - cargo-install-update --help
+      - cargo-install-update --version
+      - cargo-install-update-config --help
+      - cargo-install-update-config --version
   - package_contents:
       bin:
         - cargo-install-update

@@ -1,5 +1,5 @@
 context:
-  version: "22.1.0"
+  version: "22.1.1"
 
 package:
   name: cargo-update
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/nabijaczleweli/cargo-update/archive/refs/tags/v${{ version }}.tar.gz
-  sha256: 0e627270c963403ee1157c8dcb1679f779e261aaa4c23ccd9693fabaa5400509
+  sha256: 570d009f6ddd83d54ea478b63f369e08617feddb7119a9cb1d5c6a050d213c28
 
 build:
   number: 0

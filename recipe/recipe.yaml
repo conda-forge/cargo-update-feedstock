@@ -10,13 +10,12 @@ source:
   sha256: 570d009f6ddd83d54ea478b63f369e08617feddb7119a9cb1d5c6a050d213c28
 
 build:
-  number: 0
+  number: 1
   script:
     env:
       AWS_LC_SYS_CMAKE_BUILDER: ${{ "1" if win else "0" }} # force CMake builder for `aws-lc-sys` native C/C++ code on Windows
       CARGO_PROFILE_RELEASE_LTO: fat
       CARGO_PROFILE_RELEASE_STRIP: symbols
-      OPENSSL_DIR: $PREFIX # force using host's (conda-forge's) OpenSSL lib dir (on Unix)
       OPENSSL_NO_VENDOR: "1" # force linking to host's (conda-forge's) OpenSSL libs (on Unix)
       # instruct `cc` crate to use clang-cl natively to compile build-time tools intended to be run on the host when cross-compiling from `win_64`
       AR_x86_64_pc_windows_msvc: llvm-lib
@@ -26,6 +25,7 @@ build:
       # NOTE: we cannot use `--locked` in `cargo install` since the upstream project has no `Cargo.lock` committed
       - if: unix
         then:
+          - export OPENSSL_DIR="$PREFIX" # force the correct OpenSSL libs dir to avoid pkg-config preferring the host's homebrew OpenSSL libs (on `osx_arm64` builders)
           - cargo auditable install --path=. --root="$PREFIX" --no-track --bins
       - if: win
         then:

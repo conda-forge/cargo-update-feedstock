@@ -21,16 +21,16 @@ build:
       AR_x86_64_pc_windows_msvc: llvm-lib
       CC_x86_64_pc_windows_msvc: clang-cl
       CXX_x86_64_pc_windows_msvc: clang-cl
+    interpreter: nu
     content:
-      # NOTE: we cannot use `--locked` in `cargo install` since the upstream project has no `Cargo.lock` committed
+      - let prefix = $env.LIBRARY_PREFIX? | default $env.PREFIX
+      # force the correct OpenSSL libs dir to avoid pkg-config preferring the host's homebrew OpenSSL libs (e.g. on `osx_arm64` builders)
       - if: unix
-        then:
-          - export OPENSSL_DIR="$PREFIX" # force the correct OpenSSL libs dir to avoid pkg-config preferring the host's homebrew OpenSSL libs (on `osx_arm64` builders)
-          - cargo auditable install --path=. --root="$PREFIX" --no-track --bins
-      - if: win
-        then:
-          - cargo auditable install --path=. --root="%LIBRARY_PREFIX%" --no-track --bins
-      - cargo-bundle-licenses --format=yaml --output=./THIRDPARTY.yml
+        then: $env.OPENSSL_DIR = $prefix
+      # build main app and generate license data
+      # NOTE: we cannot use `--locked` in `cargo install` since the upstream project has no `Cargo.lock` committed
+      - cargo auditable install --path=. --root=($prefix) --no-track --bins
+      - cargo-bundle-licenses --format=yaml --output=THIRDPARTY.yml
 
 requirements:
   build:
@@ -39,6 +39,7 @@ requirements:
     - ${{ compiler('rust') }}
     - cargo-auditable
     - cargo-bundle-licenses
+    - nushell
     - if: win
       then: cmake
   host:

@@ -47,7 +47,7 @@ requirements:
       then:
         - libgit2
         - openssl
-        - pkg-config
+        - pkgconf
   run:
     - if: linux
       then: libsecret
